@@ -39,3 +39,12 @@ Route::get('/deferred', function () {
         }),
     ]);
 })->name('deferred');
+
+Route::get('/polling', function () {
+    return Inertia::render('Polling', [
+        'time' => now()->toDateTimeString(),
+        'user' => User::query()
+            ->inRandomOrder()
+            ->first(),
+    ]);
+})->name('polling');

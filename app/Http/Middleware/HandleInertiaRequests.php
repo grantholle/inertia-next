@@ -54,6 +54,11 @@ class HandleInertiaRequests extends Middleware
                     'current' => $request->routeIs('deferred'),
                     'text' => 'Deferred props',
                 ],
+                [
+                    'href' => route('polling'),
+                    'current' => $request->routeIs('polling'),
+                    'text' => 'Polling props',
+                ],
             ],
         ]);
     }
