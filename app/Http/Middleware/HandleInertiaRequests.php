@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Inertia\Middleware;
+use Inertia\Support\Header;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -36,7 +38,18 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-            //
+            'links' => fn () => [
+                [
+                    'href' => route('home'),
+                    'current' => $request->routeIs('home'),
+                    'text' => 'Regular props',
+                ],
+                [
+                    'href' => route('lazy'),
+                    'current' => $request->routeIs('lazy') && ! $request->header(Header::PARTIAL_ONLY),
+                    'text' => 'Lazy props',
+                ],
+            ],
         ]);
     }
 }

@@ -1,10 +1,11 @@
 <template>
-  <pre>{user:1}</pre>
+  <pre>{{ user }}</pre>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 
-const props = defineProps({})
-const emit = defineEmits([])
+const props = defineProps({
+  user: Object,
+})
 </script>
