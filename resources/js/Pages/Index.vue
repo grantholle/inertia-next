@@ -1,10 +1,8 @@
 <template>
-  <pre>{{ user }}</pre>
+  <pre>{{ props }}</pre>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
 const props = defineProps({
   user: Object,
 })

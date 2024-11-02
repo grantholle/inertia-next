@@ -1,0 +1,24 @@
+<template>
+  <div class="space-y-8">
+    <pre>{{ user }}</pre>
+    <Deferred data="expensiveData">
+      <template #fallback>
+        <div class="py-8">
+          <Loader class="w-12 h-12 mx-auto" />
+        </div>
+      </template>
+
+      <pre>{{ expensiveData }}</pre>
+    </Deferred>
+  </div>
+</template>
+
+<script setup>
+import { Deferred } from '@inertiajs/vue3'
+import Loader from '../Shared/Loader.vue'
+
+const props = defineProps({
+  user: Object,
+  expensiveData: Array,
+})
+</script>

@@ -46,8 +46,13 @@ class HandleInertiaRequests extends Middleware
                 ],
                 [
                     'href' => route('lazy'),
-                    'current' => $request->routeIs('lazy') && ! $request->header(Header::PARTIAL_ONLY),
+                    'current' => $request->routeIs('lazy'),
                     'text' => 'Lazy props',
+                ],
+                [
+                    'href' => route('deferred'),
+                    'current' => $request->routeIs('deferred'),
+                    'text' => 'Deferred props',
                 ],
             ],
         ]);
