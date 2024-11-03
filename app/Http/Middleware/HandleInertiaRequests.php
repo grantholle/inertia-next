@@ -65,6 +65,11 @@ class HandleInertiaRequests extends Middleware
                     'text' => 'Prefetch',
                     'prefetch' => true,
                 ],
+                [
+                    'href' => route('when-visible'),
+                    'current' => $request->routeIs('when-visible'),
+                    'text' => 'When visible',
+                ],
             ],
         ]);
     }

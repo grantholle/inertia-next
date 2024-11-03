@@ -14,7 +14,6 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-
 Route::get('/lazy', function () {
     return Inertia::render('Lazy', [
         'list' => Inertia::lazy(fn () => Collection::times(fake()->numberBetween(5, 20))
@@ -56,3 +55,21 @@ Route::get('/prefetch', function () {
             ->toArray(),
     ]);
 })->name('prefetch');
+
+Route::get('/when-visible', function () {
+    return Inertia::render('WhenVisible', [
+        'alwaysLoad' => Str::uuid()->toString(),
+        'listOne' => Inertia::lazy(function () {
+            return Collection::times(fake()->numberBetween(5, 20))
+                ->map(fn () => Str::uuid()->toString())
+                ->toArray();
+        }),
+        'listTwo' => Inertia::lazy(function () {
+            sleep(fake()->numberBetween(1, 4));
+
+            return Collection::times(fake()->numberBetween(5, 20))
+                ->map(fn () => Str::uuid()->toString())
+                ->toArray();
+        }),
+    ]);
+})->name('when-visible');

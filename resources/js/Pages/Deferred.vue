@@ -3,9 +3,7 @@
     <pre>{{ user }}</pre>
     <Deferred data="expensiveData">
       <template #fallback>
-        <div class="py-8">
-          <Loader class="w-12 h-12 mx-auto" />
-        </div>
+        <Loader />
       </template>
 
       <pre>{{ expensiveData }}</pre>
