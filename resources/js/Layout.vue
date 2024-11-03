@@ -4,7 +4,11 @@
       <nav>
         <ul class="rounded-xl bg-white/30 backdrop-blur-sm shadow-lg p-3 space-y-2">
           <li v-for="link in links" :key="link.href">
-            <Link :href="link.href" :class="['flex px-3 py-1 rounded transition', link.current ? 'bg-[#6d74ed] text-white' : 'hover:bg-gray-100/20']">
+            <Link
+              :href="link.href"
+              :class="['flex px-3 py-1 rounded transition', link.current ? 'bg-[#6d74ed] text-white' : 'hover:bg-gray-100/20']"
+              :prefetch="link.prefetch"
+            >
               {{ link.text }}
             </Link>
           </li>

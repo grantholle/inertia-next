@@ -59,6 +59,12 @@ class HandleInertiaRequests extends Middleware
                     'current' => $request->routeIs('polling'),
                     'text' => 'Polling props',
                 ],
+                [
+                    'href' => route('prefetch'),
+                    'current' => $request->routeIs('prefetch'),
+                    'text' => 'Prefetch',
+                    'prefetch' => true,
+                ],
             ],
         ]);
     }

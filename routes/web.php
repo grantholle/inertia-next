@@ -48,3 +48,11 @@ Route::get('/polling', function () {
             ->first(),
     ]);
 })->name('polling');
+
+Route::get('/prefetch', function () {
+    return Inertia::render('Prefetch', [
+        'dataList' => Collection::times(fake()->numberBetween(5, 20))
+            ->map(fn () => Str::uuid()->toString())
+            ->toArray(),
+    ]);
+})->name('prefetch');
