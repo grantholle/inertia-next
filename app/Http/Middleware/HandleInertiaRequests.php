@@ -70,6 +70,11 @@ class HandleInertiaRequests extends Middleware
                     'current' => $request->routeIs('when-visible'),
                     'text' => 'When visible',
                 ],
+                [
+                    'href' => route('merge'),
+                    'current' => $request->routeIs('merge'),
+                    'text' => 'Merge props',
+                ],
             ],
         ]);
     }

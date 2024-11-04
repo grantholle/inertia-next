@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -73,3 +74,22 @@ Route::get('/when-visible', function () {
         }),
     ]);
 })->name('when-visible');
+
+Route::get('/merge', function (Request $request) {
+    $page = (int) $request->input('page', 1);
+
+    return Inertia::render('Merge', [
+        'page' => $page,
+        'users' => Inertia::defer(fn () => User::query()
+            ->orderBy('id')
+            ->limit(1)
+            ->offset($page - 1)
+            ->get()
+            ->map(fn (User $user) => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ])
+        )->merge(),
+    ]);
+})->name('merge');
