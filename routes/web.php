@@ -7,6 +7,17 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/', function () {
     return Inertia::render('Index', [
         'user' => User::query()
@@ -14,6 +25,16 @@ Route::get('/', function () {
             ->first(),
     ]);
 })->name('home');
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/lazy', function () {
     return Inertia::render('Lazy', [
@@ -24,6 +45,18 @@ Route::get('/lazy', function () {
         'value' => Str::uuid()->toString(),
     ]);
 })->name('lazy');
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/deferred', function () {
     return Inertia::render('Deferred', [
@@ -40,6 +73,20 @@ Route::get('/deferred', function () {
     ]);
 })->name('deferred');
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/polling', function () {
     return Inertia::render('Polling', [
         'time' => now()->toDateTimeString(),
@@ -49,6 +96,25 @@ Route::get('/polling', function () {
     ]);
 })->name('polling');
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/prefetch', function () {
     return Inertia::render('Prefetch', [
         'dataList' => Collection::times(fake()->numberBetween(5, 20))
@@ -56,6 +122,25 @@ Route::get('/prefetch', function () {
             ->toArray(),
     ]);
 })->name('prefetch');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/when-visible', function () {
     return Inertia::render('WhenVisible', [
@@ -75,6 +160,26 @@ Route::get('/when-visible', function () {
     ]);
 })->name('when-visible');
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/merge', function (Request $request) {
     $page = (int) $request->input('page', 1);
 
@@ -93,3 +198,33 @@ Route::get('/merge', function (Request $request) {
         )->merge(),
     ]);
 })->name('merge');
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/infinite-scroll', function (Request $request) {
+    $page = (int) $request->input('page', 1);
+    $perPage = 15;
+
+    return Inertia::render('InfiniteScroll', [
+        'page' => $page,
+        'users' => Inertia::merge(fn () => User::query()
+            ->limit($perPage)
+            ->offset(($page - 1) * $perPage)
+            ->orderBy('id')
+            ->get()
+            ->map(fn (User $user) => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ])
+        ),
+    ]);
+})->name('infinite-scroll');

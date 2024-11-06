@@ -75,6 +75,11 @@ class HandleInertiaRequests extends Middleware
                     'current' => $request->routeIs('merge'),
                     'text' => 'Merge props',
                 ],
+                [
+                    'href' => route('infinite-scroll'),
+                    'current' => $request->routeIs('infinite-scroll'),
+                    'text' => 'Infinite scroll',
+                ],
             ],
         ]);
     }
